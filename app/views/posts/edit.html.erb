@@ -1,0 +1,7 @@
+
+<h2>You are now editing : <%=@post.title%></h2>
+
+<%= form_for @post, :url => post_path(@post), :class => "form", :method => :patch do |p| %>
+  <%= render :partial => 'form', :locals =>{:p => p} %>
+  <%= p.submit "Update", :class =>'btn btn-primary' %>
+<%end%>
