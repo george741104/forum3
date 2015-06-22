@@ -1,0 +1,17 @@
+<h3>Comments:</h3>
+
+
+  <table class="table">
+
+    <tr>
+      <td>Name</td>
+      <td>Comment</td>
+    </tr>
+    <% @comments.each do |c|%>
+    <tr>
+      <td><%=c.try(:user).try(:email)%></td>
+      <td><%=c.content%></td>
+    </tr>
+    <%end%>
+  </table>
+

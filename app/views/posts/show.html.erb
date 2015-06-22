@@ -1,3 +1,5 @@
 <h2><%=@post.title%></h2>
 <div><%=@post.content%></div>
 <%= link_to "Back to index", posts_path, :class=>'btn btn-mini'%>
+
+<%= render :partial => 'comment/index', :locals =>{:p => p} %>
