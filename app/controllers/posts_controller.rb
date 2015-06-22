@@ -2,16 +2,15 @@ class PostsController < ApplicationController
   before_action :set_post, only:[:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   def index
-
     @posts = Post.all
-
     @posts = @posts.page(params[:page]).per(10)
-
   end
 
   def show
     #@post = Post.find(params[:id])
     @comments = Comment.all
+    @comment = @post.comments.new
+    @comments = @comments.page(params[:page]).per(10)
   end
 
   def new

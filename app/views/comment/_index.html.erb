@@ -4,14 +4,17 @@
   <table class="table">
 
     <tr>
+      <td>#</td>
       <td>Name</td>
       <td>Comment</td>
     </tr>
     <% @comments.each do |c|%>
     <tr>
+      <td><%=c.id%></td>
       <td><%=c.try(:user).try(:email)%></td>
       <td><%=c.content%></td>
     </tr>
     <%end%>
   </table>
+<%= paginate @comments %>
 
