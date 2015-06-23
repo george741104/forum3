@@ -7,7 +7,5 @@ namespace :data do
       p = Post.create(:title => Faker::App.name, :content=>Faker::Lorem.paragraph(10))
       p.save
     end
-
   end
-
 end

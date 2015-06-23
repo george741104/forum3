@@ -2,14 +2,21 @@ class PostsController < ApplicationController
   before_action :set_post, only:[:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   def index
+    sort_by = (params[:order] == 'name') ? 'name' : 'created_at'
+    @posts = Post.order(sort_by).page(params[:page]).per(10)
+    @posts = Post.includes(:comments).order("created_at DESC").page(params[:page]).per(10)
+    @posts = Post.includes(:comments).order("comments.size ASC").page(params[:page]).per(10)
     @posts = Post.all
     @posts = @posts.page(params[:page]).per(10)
+
   end
 
   def show
-    #@post = Post.find(params[:id])
-    @comments = Comment.all
+    #@post = Post.find(params[:post_id])
+    #@comments = Comment.find(@post.collect &:id).group_by &:post_id
+
     @comment = @post.comments.new
+    @comments = @post.comments
     @comments = @comments.page(params[:page]).per(10)
   end
 

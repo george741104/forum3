@@ -1,3 +1,4 @@
+<h4>Total : <%= @post.comments.count%> Comments</h4>
 <h3>Comments:</h3>
 
 
@@ -12,7 +13,7 @@
     <tr>
       <td><%=c.id%></td>
       <td><%=c.try(:user).try(:email)%></td>
-      <td><%=c.content%></td>
+      <td><%=simple_format(c.content)%></td>
     </tr>
     <%end%>
   </table>

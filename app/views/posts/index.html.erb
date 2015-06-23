@@ -1,11 +1,18 @@
-<h4>hi <%=current_user.email%></h4>
+<h4>hi !  <%=current_user.email%></h4>
+
 <h2>Posts List</h2>
 
 
 <%=link_to"Add Post", new_post_path, :class=>"btn btn-mini"%>
+<%= link_to "Default", posts_path%>
+<%= link_to "Created Time", posts_path(:order => 'name')%>
+
+
 <table class="table table-responsive table-hover">
   <tr>
     <th>Title</th>
+    <th>Author</th>
+    <th colspan="3">Operation</th>
   </tr>
 
   <% @posts.each do |p|%>

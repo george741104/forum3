@@ -3,15 +3,21 @@ class CommentsController < ApplicationController
 
 
   def index
-    @comments = Comment.all
+    @post = Post.find(params[:post_id])
+    @comments = Comment.post
 
   end
-
+  def count
+    @comments = Comment.all
+    @comments = @comments.count.to_i
+  end
   def create
     @post = Post.find(params[:post_id])
     @comment = Comment.new(comment_params)
-    @comment.post_id = @post
-    @comment.user_id = current_user.id
+
+    @comment.post = @post
+    @comment.user = current_user
+
     @comment.save
 
     redirect_to post_path(@post)

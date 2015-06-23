@@ -1,13 +1,12 @@
 <%= link_to "Back to index", posts_path, :class=>'btn btn-mini'%>
 <h2><%=@post.title%></h2>
-<div class="well"><%=@post.content%></div>
+<div class="well"><%=simple_format(@post.content)%></div>
 
 
-  <%= form_for @comment, :url => post_comments_path(@post),  :class=>'form' do |c|%>
+  <%=form_for @comment, :url => post_comments_path(@post),  :class=>'form' do |c|%>
     <%= render :partial => 'comment/form', :locals =>{:c => c}%>
     <%=c.submit "Send", :class => 'btn btn-primary'%>
   <%end%>
-<h4>Total : <%= Comment.all.count%> Comments</h4>
+
 
 <%= render :partial => 'comment/index', :locals =>{:p => p} %>
-
