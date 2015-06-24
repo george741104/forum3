@@ -18,6 +18,7 @@ class PostsController < ApplicationController
     @posts = @posts.all
     @posts = @posts.page(params[:page]).per(10)
   end
+
   def show
     #@post = Post.find(params[:post_id])
     #@comments = Comment.find(@post.collect &:id).group_by &:post_id
@@ -30,6 +31,7 @@ class PostsController < ApplicationController
 
     @comments = @post.comments
     @comments = @comments.page(params[:page]).per(10)
+
   end
 
   def new
