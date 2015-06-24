@@ -1,21 +1,33 @@
 class PostsController < ApplicationController
   before_action :set_post, only:[:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+
   def index
-    sort_by = (params[:order] == 'name') ? 'name' : 'created_at'
-    @posts = Post.order(sort_by).page(params[:page]).per(10)
-    @posts = Post.includes(:comments).order("created_at DESC").page(params[:page]).per(10)
-    @posts = Post.includes(:comments).order("comments.size ASC").page(params[:page]).per(10)
-    @posts = Post.all
+    # sort_by = (params[:order] == 'title') ? 'title' : 'created_at'
+    # @posts = Post.order(sort_by).page(params[:page]).per(10)
+    # @posts = Post.includes(:comments).order("created_at DESC").page(params[:page]).per(10)
+    # @posts = Post.includes(:comments).order("comments.size DESC").page(params[:page]).per(10)
+    # @posts = Post.all
+    # @posts = @posts.page(params[:page]).per(10)
+    if params[:order] == "created_at"
+      @posts = Post.includes(:comments).order("updated_at DESC")
+    else
+      @posts = Post.order("id ASC")
+    end
+
+    @posts = @posts.all
     @posts = @posts.page(params[:page]).per(10)
-
   end
-
   def show
     #@post = Post.find(params[:post_id])
     #@comments = Comment.find(@post.collect &:id).group_by &:post_id
 
-    @comment = @post.comments.new
+    if params[:cid]
+      @comment = @post.comments.find( params[:cid] )
+    else
+      @comment = @post.comments.new
+    end
+
     @comments = @post.comments
     @comments = @comments.page(params[:page]).per(10)
   end

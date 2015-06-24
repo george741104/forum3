@@ -3,7 +3,7 @@
 <div class="well"><%=simple_format(@post.content)%></div>
 
 
-  <%=form_for @comment, :url => post_comments_path(@post),  :class=>'form' do |c|%>
+  <%=form_for [@post, @comment],  :class=>'form' do |c|%>
     <%= render :partial => 'comment/form', :locals =>{:c => c}%>
     <%=c.submit "Send", :class => 'btn btn-primary'%>
   <%end%>
