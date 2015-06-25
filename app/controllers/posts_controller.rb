@@ -12,6 +12,8 @@ class PostsController < ApplicationController
     # @posts = @posts.page(params[:page]).per(10)
 
 
+
+
    @post =Post.new
 
    if params[:post][:category_id] != ""
@@ -22,6 +24,11 @@ class PostsController < ApplicationController
     @posts = Post.all
     end
 
+    if params[:order] == "comment_count"
+      @posts = @posts.includes(:comments).order("count DESC")
+    else
+      @posts = @posts.order("id ASC")
+    end
 
     if params[:order] == "created_at"
       @posts = @posts.includes(:comments).order("updated_at DESC")
@@ -29,7 +36,8 @@ class PostsController < ApplicationController
       @posts = @posts.order("id ASC")
     end
 
-    # @posts = @posts.all
+
+    #@posts = @posts.all
     @posts = @posts.page(params[:page]).per(10)
   end
 

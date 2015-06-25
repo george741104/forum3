@@ -6,17 +6,19 @@
 <%=link_to"Add Post", new_post_path, :class=>"btn btn-warning"%>
 <%= link_to "Default", posts_path(:order =>'id'),:class=>"btn btn-default"%>
 <%= link_to "Created Time", posts_path(:order =>'created_at'), :class=>"btn btn-default"%>
+<%= link_to "Most Commented", posts_path(:order =>'comment_count'), :class=>"btn btn-default"%>
 
+<hr>
 
   <%#=collection_select( :post, :category_id, Category.all, :id, :name, prompt: true)%>
 <%=form_for @post, :url => posts_path, :method=> :get, :class=>"form" do |c|%>
 
-  <%=c.submit "Go", :class => 'btn btn-primary'%>
 
   <%=c.collection_select( :category_id, Category.all, :id, :name, prompt: true)%>
+  <%=c.submit "Go", :class => 'btn btn-primary'%>
 <%end%>
 
-
+<br>
 
 
 <table class="table table-responsive table-hover">

@@ -7,6 +7,7 @@ class CommentsController < ApplicationController
     @comments = Comment.post
 
   end
+
   def count
     @comments = Comment.all
     @comments = @comments.count.to_i
