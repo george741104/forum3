@@ -2,6 +2,12 @@
 <h2><%=@post.title%></h2>
 <div class="well"><%=simple_format(@post.content)%></div>
 
+<%@post.categories.each do |c|%>
+  <table>
+    <td><%=c.name%></td>
+  </table>
+
+<%end%>
 
   <%=form_for [@post, @comment],  :class=>'form' do |c|%>
     <%= render :partial => 'comment/form', :locals =>{:c => c}%>
