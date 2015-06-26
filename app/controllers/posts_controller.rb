@@ -12,32 +12,42 @@ class PostsController < ApplicationController
     # @posts = @posts.page(params[:page]).per(10)
 
 
-
-
-   @post =Post.new
-
-   if params[:post][:category_id] != ""
-    @category = Category.find(params[:post][:category_id].to_i)
-    @posts = @category.posts
-    else
-    @category=Category.new
     @posts = Post.all
-    end
 
-    if params[:order] == "comment_count"
-      @posts = @posts.includes(:comments).order("count DESC")
-    else
-      @posts = @posts.order("id ASC")
-    end
+
+   # @post =Post.all
+
+   # if params[:post][:category_id] !=""
+   #    @category = Category.find(params[:post][:category_id].to_i)
+   #    @posts = @category.posts
+   #  else
+   #    @category=Category.new
+   #    @posts = Post.all
+   #  end
+
+    # Category.all.each do |c|
+    #   params|c.name|
+    # end
+
+
+
 
     if params[:order] == "created_at"
+      @posts = Post.all
       @posts = @posts.includes(:comments).order("updated_at DESC")
+    elsif params[:order] == "comments_count"
+      @posts = Post.all
+      @posts = @posts.order("#{params[:order]} DESC")
     else
+      @posts = Post.all
       @posts = @posts.order("id ASC")
     end
 
+      #@posts=@posts..where("category_id in (?)",params[:post][:categories_ids])
+    @categories = Category.all
 
-    #@posts = @posts.all
+
+
     @posts = @posts.page(params[:page]).per(10)
   end
 
