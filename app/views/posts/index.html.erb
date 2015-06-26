@@ -1,6 +1,6 @@
-<h4>hi !  <%=current_user.email%></h4>
 
-<h2>Posts List</h2>
+
+
 
 
 <%=link_to"Add Post", new_post_path, :class=>"btn btn-warning"%>
@@ -14,11 +14,11 @@
     <%= check_box_tag(c.name, c.id) %>
     <%= label_tag(" ", c.name ) %>
   <%end%>
-  <%= submit_tag "Go", :class=> 'btn btn-primary'%>
+  <%= submit_tag "Go", :class=> 'btn btn-default'%>
 
-  <%=collection_check_boxes(:post, :categories_ids, @categories, :id,:name) do |b|%>
-  <%=b.label(class: "check_box") { b.check_box(class: "check_box") }%>
-  <%end%>
+  <%#=collection_check_boxes(:post, :categories_ids, @categories, :id,:name) do |b|%>
+  <%#=b.label(class: "check_box") { b.check_box(class: "check_box") }%>
+  <%#end%>
 <%end%>
 
 
@@ -32,30 +32,35 @@
 <br>
 
 
-<table class="table table-responsive table-hover">
-  <tr>
-    <th>Title</th>
-    <th>Comments</th>
-    <th>Author</th>
-    <th>Category</th>
-    <th colspan="3">Operation</th>
-  </tr>
+<div class="panel panel-primary">
+  <div class="panel-heading"><h2 class="panel-title">Posts List</h2></div>
+  <table class="table table-responsive table-hover">
+    <tr>
+      <th></th>
+      <th>Title</th>
+      <th>Comments</th>
+      <th>Author</th>
+      <th>Category</th>
+      <th colspan="3">Operation</th>
+    </tr>
 
-  <% @posts.each do |p|%>
-  <tr>
-    <td><%=p.title%></td>
-    <td><%=p.comments_count%></td>
-    <td><%=p.user.try(:email)%></td>
+    <% @posts.each do |p|%>
+    <tr>
+      <td></td>
+      <td><%=p.title%></td>
+      <td><%=p.comments_count%></td>
+      <td><%=p.user.try(:email)%></td>
 
-    <td><% cc = '' %>
-      <%p.categories.each do |c|%>
-        <% cc += c.name + ' '  %>
-        <% end %>
-        <%= cc %></td>
-    <td><%=link_to "Show", post_path(p) ,:class=>'btn btn-primary'%></td>
-    <td><%=link_to "Edit", edit_post_path(p) ,:class=>'btn btn-primary'%></td>
-    <td><%=link_to "Delete", post_path(p), :method => :delete ,:class=>'btn btn-primary'%></td>
-  </tr>
-  <%end%>
-</table>
+      <td><% cc = '' %>
+        <%p.categories.each do |c|%>
+          <% cc += c.name + ' '  %>
+          <% end %>
+          <%= cc %></td>
+      <td><%=link_to "Show", post_path(p) ,:class=>'btn btn-primary'%></td>
+      <td><%=link_to "Edit", edit_post_path(p) ,:class=>'btn btn-primary'%></td>
+      <td><%=link_to "Delete", post_path(p), :method => :delete ,:class=>'btn btn-primary'%></td>
+    </tr>
+    <%end%>
+  </table>
+</div>
 <%= paginate @posts %>

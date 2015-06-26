@@ -1,0 +1,25 @@
+<div class="form-group">
+  <%= u.label :first_name, "First Name" %>
+  <%= u.text_field :first_name, :class=>'form-control'%>
+</div>
+
+<div class="form-group">
+  <%= u.label :last_name, "Last Name" %>
+  <%= u.text_field :last_name, :class=>'form-control'%>
+</div>
+
+<div class="form-group">
+  <%= u.label :birthday, "Date of Birth" %>
+  <%#= u.date_field :birthday, :class=>'form-control'%>
+  <%= u.date_field :birthday,:class=>'form-control',:placeholder => 'Date Format: YYYY / MM / DD' %>
+</div>
+
+<div class="form-group">
+  <%= u.label :nick_name, "Nick Name" %>
+  <%= u.text_field :nick_name, :class=>'form-control'%>
+</div>
+
+<div class="form-group">
+  <%= u.label :phone, "Phone No." %>
+  <%= u.telephone_field :phone, :class=>'form-control'%>
+</div>
