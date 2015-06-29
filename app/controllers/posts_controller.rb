@@ -26,6 +26,7 @@ class PostsController < ApplicationController
   end
 
   def show
+
     if params[:cid]
       @comment = @post.comments.find( params[:cid] )
     else
@@ -43,9 +44,14 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user = current_user
 
-    @post.save # TODO: handle validation failed!
+    if @post.save # TODO: handle validation failed!
+      flash[:notice] = "Post is successfully created!"
+      redirect_to posts_path
+    else
+      flash[:alert] = "Title and content can't be blank."
+    end
 
-    redirect_to posts_path
+    redirect_to new_post_path
   end
 
   def edit

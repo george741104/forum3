@@ -17,8 +17,14 @@
       <td><%=c.id%></td>
       <td><%=c.try(:user).try(:email)%></td>
       <td><%=simple_format(c.content)%></td>
-      <td><%=link_to "Edit", post_path(@post, :cid => c) ,:class=>'btn btn-success'%></td>
-      <td><%=link_to "Delete", post_comment_path(@post, c),:method=>:delete ,:class=>'btn btn-danger'%></td>
+      <% if c.user == current_user %>
+      <td>
+      <%=link_to "Edit", post_path(@post, :cid => c) ,:class=>'btn btn-success'%>
+      </td>
+      <td>
+      <%=link_to "Delete", post_comment_path(@post, c),:method=>:delete ,:class=>'btn btn-danger'%>
+      </td>
+      <% end %>
     </tr>
     <%end%>
   </table>
