@@ -1,36 +1,19 @@
 
-
-
-
-
 <%=link_to"Add Post", new_post_path, :class=>"btn btn-warning"%>
 <%= link_to "Default", posts_path(:order =>'id'),:class=>"btn btn-default"%>
-<%= link_to "Recently updated", posts_path(:order =>'created_at'), :class=>"btn btn-default"%>
+<%= link_to "Recently updated", posts_path(:order =>'updated_at'), :class=>"btn btn-default"%>
 <%= link_to "Most Commented", posts_path(:order =>'comments_count'), :class=>"btn btn-default"%>
 
 <hr>
 <%= form_tag(posts_path, method: :get) do %>
   <% @categories.each do |c|%>
-    <%= check_box_tag(c.name, c.id) %>
+    <%= check_box_tag( "category_ids[]" , c.id) %>
     <%= label_tag(" ", c.name ) %>
   <%end%>
   <%= submit_tag "Go", :class=> 'btn btn-default'%>
-
-  <%#=collection_check_boxes(:post, :categories_ids, @categories, :id,:name) do |b|%>
-  <%#=b.label(class: "check_box") { b.check_box(class: "check_box") }%>
-  <%#end%>
-<%end%>
-
-
-  <%#=collection_select( :post, :category_id, Category.all, :id, :name, prompt: true)ories
-<%#=form_for @post, :url => posts_path, :method=> :get, :class=>"form" do |c|%>
-
-  <%#=c.collection_select( :category_id, Category.all, :id, :name, prompt: true)%>
-  <%#=c.submit "Go", :class => 'btn btn-primary'%>
-<%#end%>
+<% end %>
 
 <br>
-
 
 <div class="panel panel-primary">
   <div class="panel-heading"><h2 class="panel-title">Posts List</h2></div>
@@ -51,14 +34,20 @@
       <td><%=p.comments_count%></td>
       <td><%=p.user.try(:email)%></td>
 
-      <td><% cc = '' %>
-        <%p.categories.each do |c|%>
-          <% cc += c.name + ' '  %>
-          <% end %>
-          <%= cc %></td>
+      <td><%= p.categories.map{ |x| x.name }.join(", ") %></td>
+
       <td><%=link_to "Show", post_path(p) ,:class=>'btn btn-primary'%></td>
-      <td><%=link_to "Edit", edit_post_path(p) ,:class=>'btn btn-primary'%></td>
-      <td><%=link_to "Delete", post_path(p), :method => :delete ,:class=>'btn btn-primary'%></td>
+
+      <td>
+        <% if p.user == current_user %>
+          <%=link_to "Edit", edit_post_path(p) ,:class=>'btn btn-primary'%>
+        <% end %>
+      </td>
+      <td>
+        <% if p.user == current_user %>
+          <%=link_to "Delete", post_path(p), :method => :delete ,:class=>'btn btn-primary'%>
+        <% end %>
+      </td>
     </tr>
     <%end%>
   </table>

@@ -1,5 +1,0 @@
-<%=form_for @user, :url => users_path, :class=>"form" do |u|%>
-  <%= render :partial =>"form", :locals =>{:u=>u}%>
-  <%=p.submit "Submit", :class => 'btn btn-primary'%>
-  <%=link_to "Cancel", :back, :class => 'btn btn-default'%>
-<%end%>

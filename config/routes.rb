@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :users, :only => [:edit, :index, :update]
+  get "/about" => "pages#about"
+
+  resources :users, :only => [:edit, :show, :update]
   resources :posts do
     resources :comments
-    collection do
-      get  :about
-    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

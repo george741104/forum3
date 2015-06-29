@@ -1,36 +1,36 @@
 <div class="container">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h2 class="panel-title"><%=@user.first_name%>'s Profile   |  <%=link_to "Edit", edit_user_path(@user) ,:class=>'btn btn-default'%>
+      <h2 class="panel-title"><%= @profile.first_name %>'s Profile   |  <%=link_to "Edit", edit_user_path(@user) ,:class=>'btn btn-default'%>
       </h2>
     </div>
 
     <table class="table responsive-table table-hover">
       <tr>
         <th>First Name</th>
-        <td><%=@user.try(:first_name)%></td>
+        <td><%= @profile.first_name %></td>
       </tr>
       <tr>
         <th>Last Name</th>
-        <td><%=@user.try(:last_name)%></td>
+        <td><%= @profile.last_name %></td>
       </tr>
       <tr>
         <th>Date of Birth</th>
-        <td><%=@user.try(:birthday)%></td>
+        <td><% @profile.birthday %></td>
       </tr>
       <tr>
         <th>Nick Name</th>
-        <td><%=@user.try(:nick_name)%></td>
+        <td><%= @profile.nick_name %></td>
       </tr>
       <tr>
         <th>Phone Num.</th>
-        <td><%=@user.try(:phone)%></td>
+        <td><%= @profile.phone %></td>
       </tr>
     </table>
   </div>
 </div>
 <div class="container">
-  <% @post.each do |p|%>
+  <% @posts.each do |p|%>
     <div class="col-sm-4 col-md-4">
       <div class="panel panel-primary">
         <div class="panel-heading">
@@ -44,7 +44,7 @@
 </div>
 
 <div class="container">
-  <% @comment.each do |c|%>
+  <% @comments.each do |c|%>
     <div class="col-sm-4 col-md-4">
       <div class="panel panel-info">
         <div class="panel-heading">
