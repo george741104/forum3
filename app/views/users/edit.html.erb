@@ -1,0 +1,7 @@
+
+<h2>You are now editing : <%= @profile.first_name %>'s Profile</h2>
+
+<%= form_for @profile, :url => user_path(@user), :method => :patch, :class => "form-group" do |u| %>
+  <%= render :partial => 'form', :locals =>{:u => u} %>
+  <%= u.submit "Update", :class =>'btn btn-primary' %>
+<%end%>

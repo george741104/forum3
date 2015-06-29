@@ -1,12 +1,24 @@
-<%= link_to "Back to index", posts_path, :class=>'btn btn-mini'%>
-<h2><%=@post.title%></h2>
-<div class="well"><%=simple_format(@post.content)%></div>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2 class="panel-title">Title : <%=@post.title%></h2>
+  </div>
+  <div class="panel-body ">
+    <%= simple_format(@post.content)%>
+  </div>
+  <div class="panel-footer">
+    <%= @post.created_at.to_s(:short) %>
+  </div>
+</div>
 
+<% @post.categories.each do |c| %>
+  <span class="glyphicon glyphicon-tags">  <%=c.name%>  |</span>
+<%end%>
 
+<hr>
   <%=form_for [@post, @comment],  :class=>'form' do |c|%>
     <%= render :partial => 'comment/form', :locals =>{:c => c}%>
     <%=c.submit "Send", :class => 'btn btn-primary'%>
   <%end%>
 
 
-<%= render :partial => 'comment/index', :locals =>{:p => p} %>
+<%= render :partial => 'comment/index' %>

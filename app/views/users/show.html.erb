@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-title"><%= @profile.first_name %>'s Profile   |  <%=link_to "Edit", edit_user_path(@user) ,:class=>'btn btn-default'%>
+      </h2>
+    </div>
+
+    <table class="table responsive-table table-hover">
+      <tr>
+        <th>First Name</th>
+        <td><%= @profile.first_name %></td>
+      </tr>
+      <tr>
+        <th>Last Name</th>
+        <td><%= @profile.last_name %></td>
+      </tr>
+      <tr>
+        <th>Date of Birth</th>
+        <td><% @profile.birthday %></td>
+      </tr>
+      <tr>
+        <th>Nick Name</th>
+        <td><%= @profile.nick_name %></td>
+      </tr>
+      <tr>
+        <th>Phone Num.</th>
+        <td><%= @profile.phone %></td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="container">
+  <% @posts.each do |p|%>
+    <div class="col-sm-4 col-md-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Title : <%=p.title%></h3>
+        </div>
+        <div class="panel-body">Content : <hr><%=p.content%></div>
+      </div>
+    </div>
+  <%end%>
+  <%= paginate @posts %>
+</div>
+
+<div class="container">
+  <% @comments.each do |c|%>
+    <div class="col-sm-4 col-md-4">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h5 class="panel-title">Comment</h5>
+        </div>
+        <div class="panel-body">Content : <hr><%=c.content%></div>
+      </div>
+    </div>
+  <%end%>
+  <%= paginate @comments %>
+</div>
+
+

@@ -1,27 +1,31 @@
 class PostsController < ApplicationController
-  before_action :set_post, only:[:show, :edit, :update, :destroy]
+
+  before_action :set_post, only:[:show]
+  before_action :set_my_post, only:[:edit, :update, :destroy]
+
   before_action :authenticate_user!
 
   def index
-    # sort_by = (params[:order] == 'title') ? 'title' : 'created_at'
-    # @posts = Post.order(sort_by).page(params[:page]).per(10)
-    # @posts = Post.includes(:comments).order("created_at DESC").page(params[:page]).per(10)
-    # @posts = Post.includes(:comments).order("comments.size DESC").page(params[:page]).per(10)
-    # @posts = Post.all
-    # @posts = @posts.page(params[:page]).per(10)
-    if params[:order] == "created_at"
-      @posts = Post.includes(:comments).order("updated_at DESC")
-    else
-      @posts = Post.order("id ASC")
+    @posts = Post.all
+
+    if params[:category_ids]
+      @posts = @posts.joins(:category_postships).where( "category_postships.category_id" => params[:category_ids] )
     end
 
-    @posts = @posts.all
+    if params[:order] == "updated_at"
+      @posts = @posts.order("updated_at DESC")
+    elsif params[:order] == "comments_count"
+      @posts = @posts.order("comments_count DESC")
+    else
+      @posts = @posts.order("id ASC")
+    end
+
+    @categories = Category.all
+
     @posts = @posts.page(params[:page]).per(10)
   end
 
   def show
-    #@post = Post.find(params[:post_id])
-    #@comments = Comment.find(@post.collect &:id).group_by &:post_id
 
     if params[:cid]
       @comment = @post.comments.find( params[:cid] )
@@ -29,29 +33,33 @@ class PostsController < ApplicationController
       @comment = @post.comments.new
     end
 
-    @comments = @post.comments
-    @comments = @comments.page(params[:page]).per(10)
-
+    @comments = @post.comments.page(params[:page]).per(10)
   end
 
   def new
-    @post=Post.new
+    @post = Post.new
   end
 
   def create
     @post = Post.new(post_params)
-    @post.user_id = current_user.id
-    @post.save
+    @post.user = current_user
 
-    redirect_to posts_path
+    if @post.save # TODO: handle validation failed!
+      flash[:notice] = "Post is successfully created!"
+      redirect_to posts_path
+    else
+      flash[:alert] = "Title and content can't be blank."
+    end
+
+    redirect_to new_post_path
   end
 
   def edit
-
   end
 
   def update
-    @post.update(post_params)
+    @post.update(post_params) # TODO: handle validation failed!
+
     redirect_to posts_path
   end
 
@@ -62,12 +70,17 @@ class PostsController < ApplicationController
     redirect_to :back
   end
 
-
   private
+
+  def set_my_post
+    @post = current_user.posts.find(params[:id])
+  end
+
   def set_post
     @post = Post.find(params[:id])
   end
+
   def post_params
-    params.require(:post).permit(:title, :content)
+    params.require(:post).permit(:title, :content, :category_ids => [])
   end
 end
