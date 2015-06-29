@@ -7,23 +7,35 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="container">
+<div class="">
 
-  <nav class="navbar navbar-default">
-      <ul class="nav navbar-nav">
-          <li><%= image_tag current_user.gravatar_url %></li>
+  <nav class="navbar header-nav navbar-default ">
+      <ul class="nav navbar-nav ">
+
+          <li>
+            <% if current_user %>
+              <%= image_tag current_user.gravatar_url, :class=>'avatar' %>
+            <% end %>
+          </li>
           <li ><%=link_to "Index", posts_path %></li>
           <li ><%=link_to "About", about_path %></li>
        </ul>
 
         <ul class="nav navbar-nav navbar-right">
+
         <% if current_user %>
+
+          <% if current_user.admin? %>
+          <li>
+            <%= link_to "Admin", admin_posts_path %>
+          </li>
+          <% end %>
+
           <li ><%= link_to('Log Out', destroy_user_session_path, :method => :delete) %> </li>
           <li ><%= link_to('Settings', edit_registration_path(:user)) %> </li>
 
           <% if current_user.user_profile.nil? %>
-              <li><%=link_to "Hi! #{current_user.email}", user_path(current_user) %></li>
-
+              <li><%=link_to "Hi! #{current_user.short_name}", user_path(current_user) %></li>
             <%else%>
             <li><%=link_to "Hi! #{current_user.user_profile.first_name}",user_path(current_user)%></li>
 
@@ -34,15 +46,17 @@
           <li ><%= link_to('Log In', new_session_path(:user)) %></li>
         <% end %>
 
-
-
         </ul>
   </nav>
 </div>
+
 <div class="container">
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 <%= yield %>
+
+
+
 </div>
 </body>
 </html>
