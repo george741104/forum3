@@ -11,15 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624102829) do
+ActiveRecord::Schema.define(version: 20150629031349) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
-    t.integer  "user_id"
-    t.integer  "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "category_postships", force: :cascade do |t|
+    t.integer  "post_id"
+    t.integer  "category_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "category_postships", ["category_id"], name: "index_category_postships_on_category_id"
+  add_index "category_postships", ["post_id"], name: "index_category_postships_on_post_id"
 
   create_table "categroy_postships", force: :cascade do |t|
     t.integer  "post_id"
@@ -36,17 +44,35 @@ ActiveRecord::Schema.define(version: 20150624102829) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "comments", ["post_id"], name: "index_comments_on_post_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+
   create_table "posts", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "title"
     t.text     "content"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "category_id"
+    t.integer  "comments_count"
+  end
+
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id"
+
+  create_table "user_profiles", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "nick_name"
+    t.string   "phone"
+    t.date     "birthday"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_index "user_profiles", ["user_id"], name: "index_user_profiles_on_user_id"
+
   create_table "users", force: :cascade do |t|
-    t.integer  "post_id"
-    t.integer  "comment_id"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
