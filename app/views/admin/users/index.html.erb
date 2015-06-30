@@ -1,0 +1,66 @@
+
+
+
+
+
+
+<div class="row utility">
+
+  <div class="row">
+    <h2> Admin Mode </h2>
+    <%=link_to "Posts", admin_posts_path,:class=>'btn btn-info'%>
+
+  </div>
+
+
+
+  <div class="utility-tag-right">
+    <%=link_to"Add Post", new_post_path, :class=>"btn btn-warning"%>
+    <%= link_to "Default", admin_users_path(:order =>'id ASC'),:class=>"btn btn-default"%>
+    <%= link_to "Recently updated", admin_users_path(:order =>'updated_at'), :class=>"btn btn-default"%>
+    <%= link_to "Most Commented", admin_users_path(:order =>'comments_count'), :class=>"btn btn-default"%>
+  </div>
+</div>
+
+
+
+<div class="panel panel-danger">
+  <div class="panel-heading"><h2 class="panel-title text-centered">users List</h2></div>
+  <table class="table table-responsive table-striped">
+    <tr>
+
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>role</th>
+      <th colspan="3">Operation</th>
+    </tr>
+    <% @users.each do |u|%>
+    <tr>
+      <td><%= u.user_profile.try(:first_name) %></td>
+      <td><%= u.user_profile.try(:last_name) %></td>
+      <td><%= u.try(:email) %></td>
+      <td><%= u.try(:role) %></td>
+       <td>
+
+       <%#form_for u, :class=>'form' do |u|%>
+        <%#= u.label :role, "Role" %>
+        <%#= u.collection_select :role, options_for_select([[:admin][1]],[:author[2]]%>
+        <%#=u.submit "Send", :class => 'btn btn-primary'%>
+        <%# end %>
+
+      </td>
+
+
+
+      <td>
+        <%=link_to "Delete", admin_user_path(u), :method => :delete ,:class=>'btn btn-danger',data: {confirm: "Are you sure?"}%>
+
+      </td>
+    </tr>
+    <%end%>
+  </table>
+</div>
+<%= paginate @users %>
+
+
