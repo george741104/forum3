@@ -9,4 +9,15 @@ class User < ActiveRecord::Base
 
   has_one :user_profile, :dependent => :destroy
 
+  include Gravtastic
+  gravtastic
+
+  def short_name
+    self.email.split('@').first
+  end
+
+   def admin?
+     self.role == "admin"
+   end
+
 end

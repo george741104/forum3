@@ -32,7 +32,7 @@
       <td></td>
       <td><%=p.title%></td>
       <td><%=p.comments_count%></td>
-      <td><%=p.user.try(:email)%></td>
+      <td><%=p.user.try(:short_name)%></td>
 
       <td><%= p.categories.map{ |x| x.name }.join(", ") %></td>
 
