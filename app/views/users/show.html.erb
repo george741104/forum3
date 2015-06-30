@@ -2,12 +2,15 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h2 class="panel-title">
-        <% if current_user.user_profile.first_name ==" " %>
-          <%= current_user.short_name %>
+        <% if @user.user_profile.first_name ==" " %>
+          <%= @user.short_name %>
           <% else %>
-          <%= current_user.user_profile.first_name %>
+          <%= @user.user_profile.first_name %>
         <% end %>
-        's Profile   |  <%=link_to "Edit", edit_user_path(@user) ,:class=>'btn btn-default'%>
+        's Profile   |
+        <% if current_user == @user %>
+        <%=link_to "Edit", edit_user_path(@user) ,:class=>'btn btn-default'%>
+        <% end %>
       </h2>
     </div>
 

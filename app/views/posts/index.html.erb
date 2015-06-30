@@ -38,7 +38,7 @@
       <td></td>
       <td><%=p.title%></td>
       <td><%=p.comments_count%></td>
-      <td><%=p.user.try(:short_name)%></td>
+      <td><%=link_to p.user.try(:short_name), user_path(p.user) %></td>
 
       <td><%= p.categories.map{ |x| x.name }.join(", ") %></td>
 
