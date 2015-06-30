@@ -1,22 +1,28 @@
 
-<%=link_to"Add Post", new_post_path, :class=>"btn btn-warning"%>
-<%= link_to "Default", posts_path(:order =>'id ASC'),:class=>"btn btn-default"%>
-<%= link_to "Recently updated", posts_path(:order =>'updated_at'), :class=>"btn btn-default"%>
-<%= link_to "Most Commented", posts_path(:order =>'comments_count'), :class=>"btn btn-default"%>
 
-<hr>
-<%= form_tag(posts_path, method: :get) do %>
-  <% @categories.each do |c|%>
-    <%= check_box_tag( "category_ids[]" , c.id) %>
-    <%= label_tag(" ", c.name ) %>
-  <%end%>
-  <%= submit_tag "Go", :class=> 'btn btn-default'%>
-<% end %>
 
-<br>
+<div class="row utility">
+  <div class="category-tag"><%= form_tag(posts_path, method: :get) do %>
+      <% @categories.each do |c|%>
+        <%= check_box_tag( "category_ids[]" , c.id) %>
+        <%= label_tag(" ", c.name ) %>
+      <%end%>
+      <%= submit_tag "Go", :class=> 'btn btn-default'%>
+    <% end %>
+  </div>
+
+  <div class="utility-tag-right">
+    <%=link_to"Add Post", new_post_path, :class=>"btn btn-warning"%>
+    <%= link_to "Default", posts_path(:order =>'id ASC'),:class=>"btn btn-default"%>
+    <%= link_to "Recently updated", posts_path(:order =>'updated_at'), :class=>"btn btn-default"%>
+    <%= link_to "Most Commented", posts_path(:order =>'comments_count'), :class=>"btn btn-default"%>
+  </div>
+</div>
+
+
 
 <div class="panel panel-primary">
-  <div class="panel-heading"><h2 class="panel-title">Posts List</h2></div>
+  <div class="panel-heading"><h2 class="panel-title text-centered">Posts List</h2></div>
   <table class="table table-responsive table-hover">
     <tr>
       <th></th>

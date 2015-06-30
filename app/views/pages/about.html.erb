@@ -1,6 +1,24 @@
-<h2>About this Site</h2>
 
-<%=Post.all.count.to_s%>
-<%=User.all.count.to_s%>
-<%=Comment.all.count.to_s%>
-<%=Category.all.count.to_s%>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 style="text-align:center;">About this Site</h3>
+  </div>
+  <table class="table table-responsive table-hover">
+    <tr >
+      <th>Total Post</th>
+      <th>Total User</th>
+      <th>Total Comment</th>
+      <th>Total Category</th>
+    </tr>
+    <tr>
+      <td><%=Post.all.count.to_s%></td>
+      <td><%=User.all.count.to_s%></td>
+      <td><%=Comment.all.count.to_s%></td>
+      <td><%=Category.all.count.to_s%></td>
+    </tr>
+  </table>
+</div>
+
+
+
+
