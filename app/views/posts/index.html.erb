@@ -1,6 +1,6 @@
 
 <%=link_to"Add Post", new_post_path, :class=>"btn btn-warning"%>
-<%= link_to "Default", posts_path(:order =>'id'),:class=>"btn btn-default"%>
+<%= link_to "Default", posts_path(:order =>'id ASC'),:class=>"btn btn-default"%>
 <%= link_to "Recently updated", posts_path(:order =>'updated_at'), :class=>"btn btn-default"%>
 <%= link_to "Most Commented", posts_path(:order =>'comments_count'), :class=>"btn btn-default"%>
 

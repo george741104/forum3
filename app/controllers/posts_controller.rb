@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @posts = Post.all
+    @posts = Post.order("id DESC")
 
     if params[:category_ids]
       @posts = @posts.joins(:category_postships).where( "category_postships.category_id" => params[:category_ids] )
@@ -32,7 +32,7 @@ class PostsController < ApplicationController
     else
       @comment = @post.comments.new
     end
-
+    @user = @post.user
     @comments = @post.comments.page(params[:page]).per(10)
   end
 
@@ -49,18 +49,29 @@ class PostsController < ApplicationController
       redirect_to posts_path
     else
       flash[:alert] = "Title and content can't be blank."
+      redirect_to new_post_path
     end
 
-    redirect_to new_post_path
+
   end
 
   def edit
   end
 
   def update
-    @post.update(post_params) # TODO: handle validation failed!
 
-    redirect_to posts_path
+    if params[:_remove_logo] =="1"
+      @post.logo=nil
+      flash[:alert] = "Picture is removed!"
+    end
+
+
+    if @post.update(post_params) # TODO: handle validation failed!
+      flash[:notice] = "Post was successfully updated!"
+      redirect_to posts_path
+    else
+      flash[:alert] = "Title and Content can't be blank!"
+    end
   end
 
   def destroy
@@ -81,6 +92,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :content, :category_ids => [])
+    params.require(:post).permit(:title, :logo, :content, :category_ids => [])
   end
 end
