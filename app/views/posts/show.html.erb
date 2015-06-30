@@ -1,3 +1,9 @@
+
+<%if @post.logo.exists? %>
+      <%= image_tag @post.logo.url, :class=>'img-responsive center-block' %>
+    <% else %>
+        None
+    <% end %>
 <div class="panel panel-primary">
   <div class="panel-heading">
     <h2 class="panel-title">Title : <%=@post.title%></h2>
@@ -7,6 +13,9 @@
   </div>
   <div class="panel-footer">
     <%= @post.created_at.to_s(:short) %>
+    <% if @user == current_user %>
+      <%=link_to "Edit", edit_post_path(@post) ,:class=>'btn btn-default'%>
+    <% end %>
   </div>
 </div>
 
