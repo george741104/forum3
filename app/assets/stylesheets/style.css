@@ -3,8 +3,6 @@
   padding-right: 15px;
 }
 
-
-
 .avatar{
   width: 50px;
   height: 50px;
@@ -30,4 +28,65 @@
 
 .text-centered{
   text-align: center;
+}
+
+.menu{
+  display: none;
+}
+
+.navbar-nav > li:hover{
+    background: #2965A8;
+    border-radius: 10%;
+  }
+  .navbar-default .navbar-nav > li > a:hover{
+    color:white;
+  }
+
+#nav-switch{
+    display: none;
+    animation-duration: 4s;
+  }
+
+
+/*=========MEDIA QUERY=============  */
+@media only screen and (max-width: 768px){
+  .menu{
+    display: block;
+    text-align: center;
+    background: #515151;
+    color: white;
+  }
+  #nav-switch:checked + nav{
+      display: block;
+  }
+
+  .head-nav li{
+    display: block;
+  }
+
+  .head-nav li:hover{
+    background: #515151;
+    border-radius: 0%;
+  }
+
+
+ .navbar-default .navbar-nav > li > a:hover{
+  color: white;
+}
+
+  .head-nav{
+    display: none;
+    margin-bottom: 0px;
+  }
+  .head-nav{
+    text-align: center;
+  }
+
+
+
+
+
+
+
+
 }

@@ -2,7 +2,10 @@
 
 
 <div class="row utility">
-  <div class="category-tag"><%= form_tag(posts_path, method: :get) do %>
+  <div class="category-tag">
+
+    <%= form_tag(posts_path, method: :get) do %>
+    <span>Category Filter</span>
       <% @categories.each do |c|%>
         <%= check_box_tag( "category_ids[]" , c.id) %>
         <%= label_tag(" ", c.name ) %>
