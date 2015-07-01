@@ -43,11 +43,11 @@
       <td><%= u.try(:role) %></td>
        <td>
 
-       <%#form_for u, :class=>'form' do |u|%>
-        <%#= u.label :role, "Role" %>
-        <%#= u.collection_select :role, options_for_select([[:admin][1]],[:author[2]]%>
-        <%#=u.submit "Send", :class => 'btn btn-primary'%>
-        <%# end %>
+       <%= form_for [:admin, u], :class=>'form' do |u|%>
+        <%= u.label :role, "Role" %>
+        <%= u.select :role, [ "admin", "author" ] %>
+        <%=u.submit "Send", :class => 'btn btn-primary'%>
+        <% end %>
 
       </td>
 
