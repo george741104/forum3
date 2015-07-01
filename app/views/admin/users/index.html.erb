@@ -45,7 +45,7 @@
 
        <%= form_for [:admin, u], :class=>'form' do |u|%>
         <%= u.label :role, "Role" %>
-        <%= u.select :role, [ "admin", "author" ] %>
+        <%= u.select :role, [ " N/A ","admin", "author" ] %>
         <%=u.submit "Send", :class => 'btn btn-primary'%>
         <% end %>
 
