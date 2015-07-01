@@ -1,1 +1,71 @@
-<h2>Admin</h2>
+
+
+
+
+
+
+<div class="row utility">
+
+  <div class="row">
+    <h2> Admin Mode </h2>
+    <%=link_to "Users", admin_users_path,:class=>'btn btn-info'%>
+
+  </div>
+
+  <div class="category-tag"><%= form_tag(admin_posts_path, method: :get) do %>
+      <% @categories.each do |c|%>
+        <%= check_box_tag( "category_ids[]" , c.id) %>
+        <%= label_tag(" ", c.name ) %>
+      <%end%>
+      <%= submit_tag "Go", :class=> 'btn btn-default'%>
+    <% end %>
+  </div>
+
+  <div class="utility-tag-right">
+    <%=link_to"Add Post", new_post_path, :class=>"btn btn-warning"%>
+    <%= link_to "Default", admin_posts_path(:order =>'id ASC'),:class=>"btn btn-default"%>
+    <%= link_to "Recently updated", admin_posts_path(:order =>'updated_at'), :class=>"btn btn-default"%>
+    <%= link_to "Most Commented", admin_posts_path(:order =>'comments_count'), :class=>"btn btn-default"%>
+  </div>
+</div>
+
+
+
+<div class="panel panel-danger">
+  <div class="panel-heading"><h2 class="panel-title text-centered">Posts List</h2></div>
+  <table class="table table-responsive table-striped">
+    <tr>
+      <th></th>
+      <th>Title</th>
+      <th>Comments</th>
+      <th>Author</th>
+      <th>Category</th>
+      <th colspan="3">Operation</th>
+    </tr>
+
+    <% @posts.each do |p|%>
+    <tr>
+      <td></td>
+      <td><%=p.title%></td>
+      <td><%=p.comments_count%></td>
+      <td><%=link_to p.user.try(:short_name), user_path(p.user) %></td>
+
+      <td><%= p.categories.map{ |x| x.name }.join(", ") %></td>
+
+      <td><%=link_to "Show", post_path(p) ,:class=>'btn btn-primary'%></td>
+
+      <td>
+        <% if p.user == current_user %>
+          <%=link_to "Edit", edit_post_path(p) ,:class=>'btn btn-warning'%>
+        <% end %>
+      </td>
+      <td>
+
+          <%=link_to "Delete", post_path(p), :method => :delete ,:class=>'btn btn-danger'%>
+
+      </td>
+    </tr>
+    <%end%>
+  </table>
+</div>
+<%= paginate @posts %>

@@ -1,7 +1,16 @@
 <div class="container">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h2 class="panel-title"><%= @profile.first_name %>'s Profile   |  <%=link_to "Edit", edit_user_path(@user) ,:class=>'btn btn-default'%>
+      <h2 class="panel-title">
+        <% if @user.user_profile.first_name ==" " %>
+          <%= @user.short_name %>
+          <% else %>
+          <%= @user.user_profile.first_name %>
+        <% end %>
+        's Profile   |
+        <% if current_user == @user %>
+        <%=link_to "Edit", edit_user_path(@user) ,:class=>'btn btn-default'%>
+        <% end %>
       </h2>
     </div>
 

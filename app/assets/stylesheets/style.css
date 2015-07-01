@@ -11,5 +11,23 @@
   border-radius: 20%;
 
 }
+.utility-tag-right{
+  float: right;
+}
 
+.panel-right{
+  float: right;
+  margin-top: -7px;
+}
 
+.category-tag{
+  float: left;
+}
+
+.utility{
+  margin:10px 0;
+}
+
+.text-centered{
+  text-align: center;
+}
