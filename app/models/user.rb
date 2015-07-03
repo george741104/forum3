@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
   has_many :comments
 
   has_one :user_profile, :dependent => :destroy
-
+  has_many :favorites
+  has_many :favorite_posts, :through => :favorites, :source => :post
   include Gravtastic
   gravtastic
 
