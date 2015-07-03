@@ -8,6 +8,7 @@ class UsersController < ApplicationController
       @profile = UserProfile.create( :user => @user )
     end
 
+
     @posts = @user.posts.page(params[:page]).per(10)
     @comments = @user.comments.page(params[:page]).per(10)
   end

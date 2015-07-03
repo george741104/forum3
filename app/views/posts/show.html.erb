@@ -19,9 +19,25 @@
   </div>
 </div>
 
-<% @post.categories.each do |c| %>
-  <span class="glyphicon glyphicon-tags">  <%=c.name%>  |</span>
-<%end%>
+
+
+<div class="row">
+  <div>
+    <% @post.categories.each do |c| %>
+      <span class="glyphicon glyphicon-tags">  <%=c.name%>  |</span>
+    <%end%>
+  </div>
+  <div style="float: right">
+
+  <% if @post.favorites.find_by_user_id(current_user) %>
+    <%=link_to "Remove from Favorite", remove_favorite_post_path(@post), :method=> :post, :class => 'btn btn-warning'%>
+  <% else %>
+    <%=link_to "Add to Favorite", add_favorite_post_path(@post),:method=> :post, :class => 'btn btn-warning'%>
+  <% end %>
+  </div>
+</div>
+
+
 
 <hr>
   <%=form_for [@post, @comment],  :class=>'form' do |c|%>

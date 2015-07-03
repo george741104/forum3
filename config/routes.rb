@@ -8,6 +8,13 @@ Rails.application.routes.draw do
   resources :users, :only => [:edit, :show, :update]
   resources :posts do
     resources :comments
+
+    member do
+      post :add_favorite
+      post :remove_favorite
+    end
+
+
   end
 
   namespace :admin do

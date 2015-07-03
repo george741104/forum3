@@ -35,6 +35,7 @@ class PostsController < ApplicationController
     end
     @user = @post.user
     @comments = @post.comments.page(params[:page]).per(10)
+
   end
 
   def new
@@ -79,6 +80,18 @@ class PostsController < ApplicationController
     @post.destroy
 
     flash[:alert] = "Post was deleted"
+    redirect_to :back
+  end
+
+  def add_favorite
+    @fav = current_user.favorites.find_by_post_id(params[:id])
+    current_user.favorites.create(:post_id=>params[:id])
+    redirect_to :back
+  end
+
+  def remove_favorite
+    @fav = current_user.favorites.find_by_post_id(params[:id])
+    @fav.destroy
     redirect_to :back
   end
 
