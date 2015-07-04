@@ -11,6 +11,10 @@ class User < ActiveRecord::Base
   has_one :user_profile, :dependent => :destroy
   has_many :favorites
   has_many :favorite_posts, :through => :favorites, :source => :post
+
+  #acts_as_taggable # Alias for acts_as_taggable_on :tags
+  #acts_as_taggable_on :skills, :interests
+
   include Gravtastic
   gravtastic
 

@@ -32,6 +32,7 @@
       <th>Title</th>
       <th>Comments</th>
       <th>Author</th>
+      <th>Tags </th>
       <th>Category</th>
       <th colspan="3">Operation</th>
     </tr>
@@ -42,7 +43,7 @@
       <td><%=p.title%></td>
       <td><%=p.comments_count%></td>
       <td><%=link_to p.user.try(:short_name), user_path(p.user) %></td>
-
+      <td><%= p.tags.map{|t| t.name}.join(" | ")%></td>
       <td><%= p.categories.map{ |x| x.name }.join(", ") %></td>
 
       <td><%=link_to "Show", post_path(p) ,:class=>'btn btn-primary'%></td>
