@@ -28,7 +28,10 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    redirect_to post_path(@post)
+      respond_to do |format|
+      format.html{redirect_to post_path(@post)}
+      format.js
+    end
   end
 
   private

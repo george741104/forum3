@@ -80,7 +80,13 @@ class PostsController < ApplicationController
     @post.destroy
 
     flash[:alert] = "Post was deleted"
-    redirect_to :back
+
+    respond_to do |format|
+      format.html {redirect_to posts_path}
+      format.js
+    end
+
+
   end
 
   def add_favorite

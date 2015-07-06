@@ -22,12 +22,14 @@
 
 
 <div class="row">
-  <div>
+  <div class="col-xs-8 ">
     <% @post.categories.each do |c| %>
       <span class="glyphicon glyphicon-tags">  <%=c.name%>  |</span>
     <%end%>
+    <td>Tags : <%= @post.tags.map{|t| t.name}.join(" | ")%></td>
   </div>
-  <div style="float: right">
+
+  <div style="float:right">
 
   <% if @post.favorites.find_by_user_id(current_user) %>
     <%=link_to "Remove from Favorite", remove_favorite_post_path(@post), :method=> :post, :class => 'btn btn-warning'%>
@@ -41,9 +43,9 @@
 
 <hr>
   <%=form_for [@post, @comment],  :class=>'form' do |c|%>
-    <%= render :partial => 'comment/form', :locals =>{:c => c}%>
+    <%= render :partial => 'comments/form', :locals =>{:c => c}%>
     <%=c.submit "Send", :class => 'btn btn-primary'%>
   <%end%>
 
 
-<%= render :partial => 'comment/index' %>
+<%= render :partial => 'comments/index' %>
