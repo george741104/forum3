@@ -7,13 +7,16 @@ class CommentsController < ApplicationController
     @comment = @post.comments.new(comment_params)
     @comment.user = current_user
 
-    if @comment.save # handle validation failed
-      flash[:notice] = "Comment sent"
-    else
-      flash[:alert] = "Content can't be blank"
-    end
-    @comment.post.touch
-    redirect_to post_path(@post)
+        if @comment.save # handle validation failed
+          flash[:notice] = "Comment sent"
+        else
+          flash[:alert] = "Content can't be blank"
+        end
+       @comment.post.touch
+          redirect_to post_path(@post)
+
+
+
   end
 
   def update
