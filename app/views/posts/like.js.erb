@@ -1,0 +1,14 @@
+var text=$('#like').text()
+var like_count = <%=@likes_count%>
+
+if (text == "Like"){
+  $('#like').text("Unlike").addClass("btn-info").removeClass("btn-primary")
+}
+else{
+  $('#like').text("Like").addClass("btn-primary").removeClass("btn-info")
+}
+
+
+$('#likes_count').text(like_count)
+
+

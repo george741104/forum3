@@ -11,7 +11,8 @@ class User < ActiveRecord::Base
   has_one :user_profile, :dependent => :destroy
   has_many :favorites
   has_many :favorite_posts, :through => :favorites, :source => :post
-
+  has_many :likes
+  has_many :posts_likes, :through=> :likes, :source => :post
   #acts_as_taggable # Alias for acts_as_taggable_on :tags
   #acts_as_taggable_on :skills, :interests
 

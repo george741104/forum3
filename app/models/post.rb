@@ -13,6 +13,9 @@ class Post < ActiveRecord::Base
   has_many :favorites, :dependent => :destroy
   has_many :users, :through => :favorites
 
+  has_many :likes
+  has_many :users_likes, :through => :likes, :source => :user
+
   acts_as_ordered_taggable
   #attr_accessible :content, :name, :tag_list
   acts_as_taggable_on :tags

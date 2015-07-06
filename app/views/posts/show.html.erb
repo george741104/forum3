@@ -36,9 +36,21 @@
   <% else %>
     <%=link_to "Add to Favorite", add_favorite_post_path(@post),:method=> :post, :class => 'btn btn-warning'%>
   <% end %>
+
+
+
+
+  <% if @post.likes.find_by_user_id(current_user) %>
+    <%=link_to "Unlike", like_post_path(@post),:remote => true, :method=> :post, :class => 'btn btn-info', :id => "like"%>
+  <% else %>
+    <%=link_to "Like", like_post_path(@post),:remote => true, :method=> :post, :class => 'btn btn-primary', :id => "like"%>
+  <% end %>
+  <p id="likes_count"><%=@post.likes.count.to_i%></p>
+
+
   </div>
 </div>
-
+<%console%>
 
 
 <hr>

@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
 
-  before_action :set_post, only:[:show]
+  before_action :set_post, only:[:show, :like]
+
   before_action :set_my_post, only:[:edit, :update, :destroy]
 
   before_action :authenticate_user!
@@ -101,6 +102,26 @@ class PostsController < ApplicationController
     redirect_to :back
   end
 
+
+
+  def like
+    @likes_count = @post.likes.count.to_i
+    l = get_like
+    if l
+      l.destroy
+      @likes_count-=1
+    else
+      current_user.likes.create(:post_id=>params[:id])
+      @likes_count+=1
+    end
+    respond_to do |format|
+      format.html {redirect_to post_path(@post)}
+      format.js
+    end
+
+  end
+
+
   private
 
   def set_my_post
@@ -113,5 +134,8 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :logo, :content,:tag_list, :category_ids => [])
+  end
+  def get_like
+    current_user.likes.find_by_post_id(params[:id])
   end
 end
