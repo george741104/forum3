@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150706093643) do
+ActiveRecord::Schema.define(version: 20150708114333) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20150706093643) do
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
+    t.integer  "row_order"
   end
 
   add_index "posts", ["user_id"], name: "index_posts_on_user_id"

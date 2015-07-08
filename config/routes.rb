@@ -6,23 +6,21 @@ Rails.application.routes.draw do
   get "/about" => "pages#about"
 
   resources :users, :only => [:edit, :show, :update]
+
   resources :posts do
     resources :comments
 
     member do
+      post :move
       post :add_favorite
       post :remove_favorite
       post :like
     end
-
-
   end
 
   namespace :admin do
     resources :posts
     resources :users
-
-
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

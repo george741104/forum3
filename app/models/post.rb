@@ -20,5 +20,12 @@ class Post < ActiveRecord::Base
   #attr_accessible :content, :name, :tag_list
   acts_as_taggable_on :tags
   acts_as_ordered_taggable_on :skills, :interests
+
+  include RankedModel
+  ranks :row_order
+
+
+
+
 end
 

@@ -13,7 +13,13 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
+//= require jquery-ui
+//= require jquery-ui/sortable
 //= require turbolinks
-//= require_tree
+//= require_tree .
 //= require select2
 //= require select2_locale_"zh-TW"
+
+$(function() {
+  $('.js-tagging').select2({tags:[]})
+});

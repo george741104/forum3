@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  before_action :set_post, only:[:show, :like]
+  before_action :set_post, only:[:move, :show, :like]
 
   before_action :set_my_post, only:[:edit, :update, :destroy]
 
@@ -8,7 +8,8 @@ class PostsController < ApplicationController
 
   def index
 
-    @posts = Post.order("id DESC")
+    #@posts = Post.order("id DESC")
+    @posts = Post.rank(:row_order).all
 
     if params[:category_ids]
       @posts = @posts.joins(:category_postships).where( "category_postships.category_id" => params[:category_ids] )
@@ -25,6 +26,22 @@ class PostsController < ApplicationController
     @categories = Category.all
 
     @posts = @posts.page(params[:page]).per(10)
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml {
+        render :xml => @posts.to_xml
+      }
+      format.json {
+        render :json => @posts.to_json
+      }
+      format.atom {
+        @feed_title = "My event list"
+      } # index.atom.builder
+    end
+
+
+
   end
 
   def show
@@ -52,7 +69,7 @@ class PostsController < ApplicationController
       redirect_to posts_path
     else
       flash[:alert] = "Title and content can't be blank."
-      redirect_to new_post_path
+      redirect_to :back
     end
 
 
@@ -119,6 +136,14 @@ class PostsController < ApplicationController
       format.js
     end
 
+  end
+
+
+  def move
+    @post.row_order_position = params[:position]
+    @post.save!
+
+    redirect_to :back
   end
 
 

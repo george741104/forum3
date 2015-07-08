@@ -26,9 +26,9 @@
 
 <div class="panel panel-primary">
   <div class="panel-heading"><h2 class="panel-title text-centered">Posts List</h2></div>
-  <table class="table table-responsive table-hover">
+  <table class="table table-responsive table-hover" id="list">
     <tr>
-      <th></th>
+      <th colspan="4">Order</th>
       <th>Title</th>
       <th>Comments</th>
       <th>Author</th>
@@ -38,8 +38,28 @@
     </tr>
 
     <% @posts.each do |p|%>
-    <tr id="post-list-<%= p.id %>">
-      <td></td>
+    <tr id="post-list-<%= p.id %>" data-reorder-url="<%= move_post_path(p)%>">
+      <td>
+        <%= link_to move_post_path(p, :position => :first), :method => :post do %>
+          <span class="fa fa-angle-double-up"></span>
+        <% end %>
+      </td>
+
+      <td>
+        <%= link_to move_post_path(p, :position => :up), :method => :post do %>
+           <span class="fa fa-angle-up"></span>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to move_post_path(p, :position => :down), :method => :post do %>
+          <span class="fa fa-angle-down"></span>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to move_post_path(p, :position => :last), :method => :post do %>
+          <span class="fa fa-angle-double-down"></span>
+        <% end %>
+      </td>
       <td><%=p.title%></td>
       <td><%=p.comments_count%></td>
       <td><%=link_to p.user.try(:short_name), user_path(p.user) %></td>
@@ -62,4 +82,36 @@
     <%end%>
   </table>
 </div>
-<%= paginate @posts %>
+<%#= paginate @posts %>
+
+<script>
+$( ".selector" ).sortable({
+  sort: function( event, ui ) {}
+});
+
+  $("table").sortable({
+      items: "tr",
+      update: function(event, ui) {
+
+          console.log("Move to "+ ui.item.index() );
+
+        url = ui.item.data("reorder-url")
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            dataType: "json",
+            data:{
+                position: ui.item.index()
+            }
+        })
+      }
+  });
+
+
+
+
+</script>
+
+
+
