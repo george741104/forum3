@@ -23,9 +23,13 @@ class User < ActiveRecord::Base
     self.email.split('@').first
   end
 
-   def admin?
-     self.role == "admin"
-   end
+  def admin?
+   self.role == "admin"
+  end
+
+  def liked_posts(params)
+    self.likes.find_by_post_id(:post_id)
+  end
 
   def self.from_omniauth(auth)
     # Case 1: Find existing user by facebook uid

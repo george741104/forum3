@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find( params[:id] )
     @profile = @user.user_profile
+    @likes = @user.likes.find_by_post_id([:id])
 
     unless @profile
       @profile = UserProfile.create( :user => @user )
