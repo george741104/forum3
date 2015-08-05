@@ -1,0 +1,13 @@
+<div id='content'></div>
+
+<script>
+$.ajax({
+  url:"/spa",
+  dataType:"json",
+  success:function(result){
+    data = {name :"george", events:['a','b','c',]}
+  }
+})
+$('#content').html(JST['page/spa']({name:george, events:['a','b','c']}));
+
+</script>

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
 
   get "/about" => "pages#about"
-
+  get "/spa" =>'pages#spa'
   resources :users, :only => [:edit, :show, :update]
 
   resources :posts do
